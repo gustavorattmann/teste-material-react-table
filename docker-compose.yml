@@ -1,42 +1,53 @@
-version: "3.9"
 services:
   web:
-  build:
-    context: ./web
-    image: image-web:latest
-    container_name: teste_web
+    build:
+      context: "./web"
+    env_file:
+      - .env
+    image: "image-web:latest"
+    container_name: "teste_web"
     ports:
-      - 8000:8080
+      - "8000:8000"
+      - "8080:8080"
     volumes:
-      - ./web:.
+      - "./web:/usr/src/app"
+      - "/usr/src/app/node_modules/"
     networks:
       - web
     depends_on:
       - api
   api:
-    context: ./api
-    image: image-api:latest
-    container_name: teste_api
+    build:
+      context: "./api"
+    env_file:
+      - .env
+    image: "image-api:latest"
+    container_name: "teste_api"
     ports:
-      - 3000:3080
+      - "3000:3000"
+      - "3080:3080"
     volumes:
-      - ./api:.
+      - "./api:/usr/src/app"
     networks:
       - api
     depends_on:
       - database
   database:
-    image: postgres:13.14-alpine3.19
-    container_name: teste_db
+    image: "postgres:13.14-alpine3.19"
+    container_name: "teste_db"
     ports:
-      - 5432:5439
-    restart: always
-    shm_size: 128mb
+      - "5432-5439:5432-5439"
+    restart: "always"
+    shm_size: "128mb"
     networks:
       - database
+    env_file:
+      - .env
     environment:
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: "${DB_DATABASE}"
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
 networks:
   web:
   api:

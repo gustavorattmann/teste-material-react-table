@@ -1,3 +1,9 @@
+# API
 api/node_modules
+api/.env
+
+# WEB
 web/node_modules
+
+# ROOT
 .env
