@@ -1,9 +1,33 @@
 # API
 api/node_modules
 api/.env
+api/yarn.lock
+api/package-lock.json
+npm-debug.log
+yarn-error.log
 
 # WEB
 web/node_modules
+web/yarn.lock
+web/package-lock.json
+npm-debug.log
+yarn-error.log
 
 # ROOT
 .env
+.git
+.vscode
+.idea
+.fleet
+
+### MacOS ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+### Windows ###
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+$RECYCLE.BIN
