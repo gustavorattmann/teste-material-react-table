@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { routes } from "./routers";
 import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
@@ -21,17 +22,7 @@ const options: cors.CorsOptions = {
 
 app.use(cors(options));
 app.use(express.json());
-
-app.get("/", async (req, res) => {
-  try {
-    res.send("Olá");
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({
-      error: "Server error!",
-    });
-  }
-});
+app.use("/", routes);
 
 app.listen(port, () => {
   console.log("🚀 Servidor está em execução!");
